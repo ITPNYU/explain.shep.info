@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Please Explain</title>
+    <script src="/js/jquery.js" type="text/javascript"></script>
+    <script src="/js/application.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="/css/pleaseexplain.css">
+  </head>
+  <body>
+    <div id="wrapper">
+      <div id="header">
+        <%= erb :header %>
+      </div>
+      <div id="content">
+        <%= yield %>
+      </div>
+    </div>
+  </body>
+</html>
