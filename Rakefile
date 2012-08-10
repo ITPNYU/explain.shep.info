@@ -10,6 +10,9 @@ namespace :db do
 end
 
 # http://railstips.org/blog/archives/2008/10/27/using-gmail-with-imap-to-receive-email-in-rails/
+# http://www.ruby-doc.org/gems/docs/m/mail-2.4.4/Mail/SMTP.html
+# http://www.ruby-doc.org/gems/docs/m/mail-2.4.4/Mail/IMAP.html
+# http://www.ruby-doc.org/stdlib-1.9.3/libdoc/net/imap/rdoc/Net/IMAP.html#method-i-fetch
 
 task :compile_and_send_digest => [:get_messages, :send_email]
 
