@@ -1,6 +1,6 @@
 source :rubygems
 
-gem 'mail'
+gem 'mail' # http://www.ruby-doc.org/gems/docs/m/mail-2.4.4/Mail.html
 gem 'sinatra'
 gem 'kramdown'
 

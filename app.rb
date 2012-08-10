@@ -7,6 +7,7 @@ require './models'
 
 class PleaseExplain < Sinatra::Base
   enable :sessions
+  set :thing, File.dirname(__FILE__)
 
   helpers do
     def admin?

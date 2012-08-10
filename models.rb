@@ -8,16 +8,16 @@ class Email
   property :id, Serial, key:true
 
   # Email content
-  property :message_id, Text
+  property :message_id, String, unique: true
   property :from, String
   property :subject, String
   property :date, DateTime
   property :body, Text
 
   # PleaseExplain Data
-  property :status, Boolean
+  property :approved, Boolean
   property :approved_by, Integer # user.id
-  property :sent, Boolean
+  property :sent, Boolean, default: false
 end
 
 class User
@@ -43,4 +43,4 @@ class User
 end
 
 DataMapper.finalize
-# DataMapper.auto_upgrade!
+DataMapper.auto_upgrade!
