@@ -69,7 +69,7 @@ h1, h2, h3, h4, h5, h6 {
   margin: 1.4em 0 1em;
 }
 
-h2, h3, h4, h5, h6, pre {
+h2, h3, h4, h5, h6, pre, a {
   color: #0881f1;
 }
 
