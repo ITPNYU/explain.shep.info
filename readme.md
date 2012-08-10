@@ -12,9 +12,9 @@ Scenario:
 
 (The admin can toggle between manual and automated for step #5.)
 
-5a -- Manual. When the explain.shep admin logs in, shep displays messages that do not yet have SENT flags, along with the senders name and email, and presents them to the admin in a list. The admin can UNCHECK mail that SHOULD NOT be sent, then bundle them in a single message. 
+5. Manual: When the explain.shep admin logs in, shep displays messages that do not yet have SENT flags, along with the senders name and email, and presents them to the admin in a list. The admin can UNCHECK mail that SHOULD NOT be sent, then bundle them in a single message. 
 
-5b -- Automated. Shep periodically queries the db, looking for messages without SENT flags. When there are N or more such messages (N >= 3, at this point) or H hours have passed after the message was delivered (H == 48 at this point), and bundle them in a single message.
+5. Automated: Shep periodically queries the db, looking for messages without SENT flags. When there are N or more such messages (N >= 3, at this point) or H hours have passed after the message was delivered (H == 48 at this point), and bundle them in a single message.
 
 6. Shep then sends an email with a message or messages back to the mailing list, *without the original user's name* (or users' names, in the case of multiple messages), under the subject line [Please Explain] and a header that reads:
 
