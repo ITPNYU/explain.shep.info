@@ -56,8 +56,8 @@ approved through the web interface.
 
 5. Run the site
 
-      $ rackup
+        $ rackup
 
 6. Or run the Rake tasks.
 
-      $ rake -T # to see what tasks are available
+        $ rake -T # to see what tasks are available
