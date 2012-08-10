@@ -10,7 +10,7 @@ Explain.shep.info is designed to let mailing list subscribers send confidential 
 
 4. When shep@shep.info receives a message with "[explain]" in the subject, it checks that the sender is valid, then records the email (and all headers) and puts the body of the message in a database.
 
-  (The admin can toggle between manual and automated for step #5 or #6.)
+    (The admin can toggle between manual and automated for step #5 or #6.)
 
 5. Manual: When the explain.shep admin logs in, shep displays messages that do not yet have SENT flags, along with the senders name and email, and presents them to the admin in a list. The admin can UNCHECK mail that SHOULD NOT be sent, then bundle them in a single message.
 
@@ -18,7 +18,7 @@ Explain.shep.info is designed to let mailing list subscribers send confidential 
 
 7. Shep then sends an email with a message or messages back to the mailing list, *without the original user's name* (or users' names, in the case of multiple messages), under the subject line [Please Explain] and a header that reads:
 
-  "One of your fellow list members found the following hard to understand. Would someone be willing to offer an explanation? If so, reply to this email with your explanation. Thanks, Shep."
+    "One of your fellow list members found the following hard to understand. Would someone be willing to offer an explanation? If so, reply to this email with your explanation. Thanks, Shep."
 
 8. After sending the mail, shep watches the list for replies to the [Please Explain] message, and records those as well.
 
