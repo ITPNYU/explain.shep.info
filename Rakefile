@@ -11,6 +11,8 @@ end
 
 # http://railstips.org/blog/archives/2008/10/27/using-gmail-with-imap-to-receive-email-in-rails/
 
+task :compile_and_send_digest => [:get_messages, :send_email]
+
 task :get_messages do
   imap = Net::IMAP.new('imap.gmail.com', ssl: true)
   # LOGIN
@@ -32,16 +34,21 @@ task :get_messages do
     # Get a cleaned body from the email.
     content = mail.body.parts().first.to_s.match(/Content-ID: <.*?>..(.*)/m)[1]
 
-    # Create a new Email model.
-    new_mail = Email.new
-    new_mail.from = mail.from
-    new_mail.subject = mail.subject
-    new_mail.date = mail.date
-    new_mail.body = content
-    new_mail.message_id = uid
-    # Automatically approve the email unless Preapprove is set.
-    new_mail.approved = true unless ENV['PREAPPROVE']
-    puts new_mail.save
+    # prevent infinite feedback from digest emails.
+    if mail.to != ENV['DESTINATION_ADDRESS']
+      # Create a new Email model.
+      new_mail = Email.new
+      new_mail.from = mail.from
+      new_mail.subject = mail.subject
+      new_mail.date = mail.date
+      new_mail.body = content
+      new_mail.message_id = uid
+      # Automatically approve the email unless Preapprove is set.
+      if (ENV['PREAPPROVE'] == 'false')
+        new_mail.approved = true
+      end
+      puts new_mail.save
+    end
     # Archive the mail. Move it out of the inbox so it doesn't get looked at again.
     imap.uid_copy(uid, "[Gmail]/All Mail")
     imap.uid_store(uid, "+FLAGS", [:Deleted])
@@ -63,7 +70,7 @@ task :send_email do
   end
 
   # Get all emails that are approved but have not yet already been sent out.
-  @unsent_approved = Email.all(conditions: { approved: true, sent: false || nil }, order: [:date.asc])
+  @unsent_approved = Email.all(conditions: { approved: true, sent: false }, order: [:date.asc])
 
   # See if these emails meet the conditions to send out a digest.
 
@@ -75,7 +82,7 @@ task :send_email do
     digest = construct_digest(@unsent_approved)
 
     Mail.deliver do
-      to 'sklise@gmail.com'
+      to ENV['DESTINATION_ADDRESS']
       from ENV['GMAIL_ADDRESS']
       subject "[Please Explain] Digest for #{Date.today}"
       body digest

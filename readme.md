@@ -22,6 +22,7 @@ variables that must be set:
       $ export GMAIL_ADDRESS=<your_email@domain.com>
       $ export GMAIL_PASSWORD=<your_password>
       $ export PREAPPROVE=<false OR true>
+      $ export DESTINATION_ADDRESS=<email_to_send_digest_to>
 
 When `PREAPPROVE` is set to `false` emails are automatically approved to be
 added to digest emails. If `PREAPPROVE` is set to `true` then emails must be
