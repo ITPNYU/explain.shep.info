@@ -24,7 +24,19 @@ Explain.shep.info is designed to let mailing list subscribers send confidential 
 
 9. Optionally, a user receiving a [Please Explain] message that contains objectionable content can forward the message to shep with [flag] anywhere in the subject line, and shep will forward the message to the admins' email addresses.)
 
-## Development
+
+### TESTS, FLAGS and VARIABLES:
+
+- TEST The incoming mail is from a list user
+- VARIABLE Maximum character/word count in the mail body
+- TEST That the mail doesn't have a .sig/Delete if it does
+- FLAG Store mail in the db without a SENT flag/Set on send
+- FLAG Is mail sending manual or automatic
+- VARIABLE Send mail after N messages
+- VARIABLE Send mail after H hours
+- TEST That the outbound message doesn't bounce
+
+### Development
 
 1. Have Ruby 1.9.X. Tested on Ruby 1.9.3. If you aren't running Ruby 1.9.2 or
 higher I recommend doing so with [rvm](http://rvm.io).
