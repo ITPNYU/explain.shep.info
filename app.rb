@@ -29,16 +29,14 @@ class PleaseExplain < Sinatra::Base
     end
   end
 
-  before '/admin/*' do
-    protected!
-  end
-
   get '/' do
     erb :main
   end
 
-  get '/admin/dashboard' do
-    protected!
+  get '/dashboard' do
+    # protected!
+
+    @emails = Email.all(order: [:sent, :date.desc])
 
     erb :dashboard
   end

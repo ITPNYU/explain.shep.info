@@ -18,6 +18,9 @@ class Email
   property :approved, Boolean
   property :approved_by, Integer # user.id
   property :sent, Boolean, default: false
+
+  property :created_at, DateTime
+  property :updated_at, DateTime
 end
 
 class User
