@@ -104,15 +104,15 @@ end
 def construct_digest(emails)
   preamble = ""
   if emails.length == 1
-    preamble += "Here are a few questions from some of your classmates"
+    preamble += "Some of your classmates have questions about the items below."
   else
-    preamble += "Here is a question from one of your classmates"
+    preamble += "One of your classmates has a question about the item below."
   end
 
   digest = <<-OYEZ
-#{preamble} needing explanation.
+#{preamble}
 
-If you'd be so kind as to reply to this email, we'll sleep better and I'll stop chewing the furniture.
+Could you offer an explanation? If so, put it in a reply to this mail, and thank you.
   OYEZ
 
   emails.each_with_index do |email, index|
@@ -121,11 +121,9 @@ If you'd be so kind as to reply to this email, we'll sleep better and I'll stop 
   end
 
   digest += <<-OYEZ
-Thank you.
+** Please Explain, hosted by shep **
 
-If there's something here on the List, at ITP, in New York or just anything that you don't understand, you can ask for an explanation by sending an email to #{ENV['GMAIL_ADDRESS']} with "explain" in the subject line.
-
-**YOUR EMAIL ADDRESS WILL NOT BE DISCLOSED TO OTHER STUDENTS, HOWEVER MIDORI AND CLAY ARE ABLE TO SEE WHO ASKED WHAT QUESTION -- TO PREVENT ABSUE.**
+If someone says something you don't understand, here on the List, on the floor, or just about life in NYC, you can ask one of your fellow students for an explanation by sending an email to #{ENV['GMAIL_ADDRESS']} with "explain" in the subject line. We'll forward you question to the list, WITHOUT your name or email address.
 
 **BE SURE TO REMOVE YOUR SIGNATURE FROM THE EMAIL.**
   OYEZ
