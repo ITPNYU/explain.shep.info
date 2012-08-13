@@ -93,6 +93,26 @@ pre {
   margin: 1em 0;
 }
 
+div#filter {
+  background-color: rgba(32, 32, 53, 0.8);
+  color: black;
+  margin: 0 auto;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  padding: 0.4em 1.2em;
+  text-align: center;
+  width: 180px;
+}
+
+div#filter:hover {
+  cursor: pointer;
+}
+
+#filter.auto {
+  background-color: rgba(110,223,69,1);
+}
+
 #dashboard {
   list-style-type: none;
 }

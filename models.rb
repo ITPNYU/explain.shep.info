@@ -45,5 +45,12 @@ class User
   end
 end
 
+class Filter
+  include DataMapper::Resource
+
+  property :id, Serial, key: true
+  property :preapprove, Boolean, default: false
+end
+
 DataMapper.finalize
 DataMapper.auto_upgrade!

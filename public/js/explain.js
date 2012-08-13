@@ -17,4 +17,11 @@ $(function(){
 
   $('span.approve').click(function(){setStatus(this, 'approve')});
   $('span.reject').click(function(){setStatus(this, 'reject')});
+
+  $('#filter').click(function(){
+    var self = this;
+    $.post('/admin/filter',function(data){
+      $(self).toggleClass('auto');
+    });
+  })
 });

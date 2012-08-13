@@ -37,6 +37,7 @@ class PleaseExplain < Sinatra::Base
   get '/dashboard' do
     protected!
 
+    @filter = Filter.first
     @emails = Email.all(order: [:approved, :sent, :date.desc])
 
     erb :dashboard
@@ -48,13 +49,13 @@ class PleaseExplain < Sinatra::Base
     content_type :json
     @email = Email.get(params[:id])
     if params[:action] == 'true'
-      if @email.update(approved:true)
+      if @email.update(approved:true, approved_by:@user.id)
         {success:"ok"}.to_json
       else
         {success:"error"}.to_json
       end
     else
-      if @email.update(approved:false)
+      if @email.update(approved:false, approved_by:@user.id)
         {success:"ok"}.to_json
       else
         {success:"error"}.to_json
@@ -62,6 +63,18 @@ class PleaseExplain < Sinatra::Base
     end
   end
 
+  post "/admin/filter" do
+    protected!
+
+    content_type :json
+    @filter = Filter.first
+    @filter.preapprove = !@filter.preapprove
+    if @filter.save
+      {success:"ok"}.to_json
+    else
+      {success:"error"}.to_json
+    end
+  end
 
   # LOGIN / LOGOUT
   #____________________________________________________________________________

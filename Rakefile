@@ -17,6 +17,7 @@ end
 task :compile_and_send_digest => [:get_messages, :send_email]
 
 task :get_messages do
+  @filter = Filter.first
   imap = Net::IMAP.new('imap.gmail.com', ssl: true)
   # LOGIN
   imap.login(ENV['GMAIL_ADDRESS'], ENV['GMAIL_PASSWORD'])
@@ -49,7 +50,7 @@ task :get_messages do
       new_mail.body = content
       new_mail.message_id = uid
       # Automatically approve the email unless Preapprove is set.
-      if (ENV['PREAPPROVE'] == 'false')
+      if (@filter.preapprove == 'false')
         new_mail.approved = true
       end
       puts new_mail.save
