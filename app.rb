@@ -13,7 +13,7 @@ class PleaseExplain < Sinatra::Base
   helpers do
     def admin?
       # Exit if current_user is unset. Otherwise check the token.
-      @user = user.first(email: current_user)
+      @user = User.first(email: current_user)
       if @user.nil?
         false
       else
@@ -35,14 +35,16 @@ class PleaseExplain < Sinatra::Base
   end
 
   get '/dashboard' do
-    # protected!
+    protected!
 
-    @emails = Email.all(order: [:sent, :date.desc])
+    @emails = Email.all(order: [:approved, :sent, :date.desc])
 
     erb :dashboard
   end
 
   post '/admin/emails/:id/:action' do
+    protected!
+
     content_type :json
     @email = Email.get(params[:id])
     if params[:action] == 'true'
@@ -78,7 +80,7 @@ class PleaseExplain < Sinatra::Base
         @user.save
         response.set_cookie('email', value: @user.email, path:"/")
         response.set_cookie('token', value: @user.token, path:"/")
-        redirect '/'
+        redirect '/dashboard'
       else
         "Incorrect password"
       end

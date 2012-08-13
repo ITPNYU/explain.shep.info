@@ -14,6 +14,14 @@
       <div id="content">
         <%= yield %>
       </div>
+
+      <div id="footer">
+        <% if admin? %>
+          <a href="/logout">log out</a>
+        <% else %>
+          <a href="/login">log in</a>
+        <% end %>
+      </div>
     </div>
   </body>
 </html>
