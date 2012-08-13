@@ -59,7 +59,7 @@ p, li {
 }
 
 #wrapper {
-  margin: 0 auto;
+  margin: 1em auto;
   position: relative;
   width: 700px;
 }
