@@ -28,6 +28,8 @@ task :get_messages do
   # Not sure how net/imap handles search, but so far it's working well.
   explain_uids = imap.uid_search(["SUBJECT","explain"])
 
+  puts "Found #{explain_uids.length} emails"
+
   explain_uids.each do |uid|
     # envelope = imap.fetch(id, "ENVELOPE")[0].attr["ENVELOPE"]
     # body = imap.fetch(id, "BODY[TEXT]")[0].attr["BODY[TEXT]"]
@@ -82,7 +84,8 @@ task :send_email do
   # If there are 3+ emails to check or the oldest one is more than 48 hours old
   elsif @unsent_approved.length >= 3 || (Time.now - @unsent.first.date.to_time) >= 172800
 
-    digest = construct_digest(@unsent_approved)
+    email_template = ERB.new File.read('./views/email.erb')
+    digest = email_template.result(binding)
 
     Mail.deliver do
       to ENV['DESTINATION_ADDRESS']
@@ -93,42 +96,4 @@ task :send_email do
   else
     puts "#{Time.now} - less than 3 or riper than 2 days of emails."
   end
-end
-
-# Public: Take an array of questions and put them together into a form email to
-# be sent to The List.
-#
-# emails - an array of Email objects
-#
-# Returns a long string consisting of the body of an email digest.
-def construct_digest(emails)
-  preamble = ""
-  if emails.length == 1
-    preamble += "Here are a few questions from some of your classmates"
-  else
-    preamble += "Here is a question from one of your classmates"
-  end
-
-  digest = <<-OYEZ
-#{preamble} needing explanation.
-
-If you'd be so kind as to reply to this email, we'll sleep better and I'll stop chewing the furniture.
-  OYEZ
-
-  emails.each_with_index do |email, index|
-    digest += "    #{index + 1}. #{email.body}\n\n"
-    email.update(sent:true)
-  end
-
-  digest += <<-OYEZ
-Thank you.
-
-If there's something here on the List, at ITP, in New York or just anything that you don't understand, you can ask for an explanation by sending an email to #{ENV['GMAIL_ADDRESS']} with "explain" in the subject line.
-
-**YOUR EMAIL ADDRESS WILL NOT BE DISCLOSED TO OTHER STUDENTS, HOWEVER MIDORI AND CLAY ARE ABLE TO SEE WHO ASKED WHAT QUESTION -- TO PREVENT ABSUE.**
-
-**BE SURE TO REMOVE YOUR SIGNATURE FROM THE EMAIL.**
-  OYEZ
-
-  digest
 end

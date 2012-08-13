@@ -1,13 +1,13 @@
-This is an email template
+Here are a few questions from some of your classmates. If you'd be so kind as to reply to this email, we'll sleep better and I'll stop chewing the furniture.
 
-<% @questions.each do |question| %>
-  <p><%= question %></p>
+<% @unsent_approved.each_with_index do |email, index| %>
+<%= index + 1 %>. <%= email.body %><% email.update(sent:true) %>
 <% end %>
 
 Thank you.
 
 If there's something here on the List, at ITP, in New York or just anything that you don't understand, you can ask for an explanation by sending an email to #{ENV['GMAIL_ADDRESS']} with "explain" in the subject line.
 
-<strong>YOUR EMAIL ADDRESS WILL NOT BE DISCLOSED TO OTHER STUDENTS, HOWEVER MIDORI AND CLAY ARE ABLE TO SEE WHO ASKED WHAT QUESTION -- TO PREVENT ABSUE.</strong>
+**YOUR EMAIL ADDRESS WILL NOT BE DISCLOSED TO OTHER STUDENTS, HOWEVER MIDORI AND CLAY ARE ABLE TO SEE WHO ASKED WHAT QUESTION -- TO PREVENT ABSUE.**
 
-<strong>BE SURE TO REMOVE YOUR SIGNATURE FROM THE EMAIL.</strong>
+**BE SURE TO REMOVE YOUR SIGNATURE FROM THE EMAIL.**
