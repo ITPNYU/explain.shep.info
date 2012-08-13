@@ -41,7 +41,7 @@ task :get_messages do
     if mail.to != ENV['DESTINATION_ADDRESS']
       # Create a new Email model.
       new_mail = Email.new
-      new_mail.from = mail.from
+      new_mail.from = mail.from[0]
       new_mail.subject = mail.subject
       new_mail.date = mail.date
       new_mail.body = content
