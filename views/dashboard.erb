@@ -1,10 +1,28 @@
 <ul id="dashboard">
   <% @emails.each do |email| %>
     <li>
-      <span class="approved"><%= email.approved %></span>
-      <span class="date"><%= email.date.strftime("%Y/%m/%d") %></span>
-      <span class="subject"><%= email.subject %></span>
-      <span class="from"><%= email.from %></span>
+      <div class="info">
+      <span class="status">
+      <% if email.sent %>
+        <span class="sent">M</span>
+      <% elsif email.approved %>
+        <span class="approved">3</span>
+      <% elsif email.approved == false %>
+        <span class="rejected">*</span>
+      <% else %>
+        <span class="waiting" data-id="<%= email.id %>">
+          <span class="approve">3</span>
+          <span class="reject">*</span>
+        </span>
+      <% end %>
+      </span>
+        <span class="date"><%= email.date.strftime("%Y/%m/%d") %></span>
+        <span class="subject"><%= email.subject %></span>
+      </div>
+      <div class="body">
+        <p>From <span class="from"><%= email.from %></span></p>
+        <%= email.body %>
+      </div>
     </li>
   <% end %>
 </ul>

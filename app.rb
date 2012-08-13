@@ -2,6 +2,7 @@ require 'bundler'
 Bundler.require
 
 require 'bcrypt'
+require 'json'
 
 require './models'
 
@@ -39,6 +40,24 @@ class PleaseExplain < Sinatra::Base
     @emails = Email.all(order: [:sent, :date.desc])
 
     erb :dashboard
+  end
+
+  post '/admin/emails/:id/:action' do
+    content_type :json
+    @email = Email.get(params[:id])
+    if params[:action] == 'true'
+      if @email.update(approved:true)
+        {success:"ok"}.to_json
+      else
+        {success:"error"}.to_json
+      end
+    else
+      if @email.update(approved:false)
+        {success:"ok"}.to_json
+      else
+        {success:"error"}.to_json
+      end
+    end
   end
 
 
